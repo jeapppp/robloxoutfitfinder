@@ -1,26 +1,32 @@
-# robloxoutfitfinder
-Find Roblox saved outfits from users via UserID.
+# 🎮 Outfit Loader (Roblox)
 
-## Overview
-**robloxoutfitfinder** is a terminal-based Python tool that allows you to retrieve all
-saved Roblox outfits from any user by entering their **Roblox UserID**.  
-It communicates with official Roblox API endpoints to fetch outfit data, filters out
-only the **editable (owned)** outfits, and saves everything neatly into an `ids.txt` file.
+A clean and stylish Python tool to **fetch all editable Roblox outfits** of any user — using either a **UserID or Username**.  
+Features animated terminal output, color gradients, and automatic file export.
 
-The program includes smooth terminal animations such as color gradients, 
-typewriter effects, and a modern UI feel to make scraping Roblox outfits fun,
-clean, and visually appealing.
+> 💡 Developed by **@toukaclips**  
+> 🌐 Discord: `.gg/worldvoice`
 
 ---
 
-## What the Tool Does
-- Connects to Roblox APIs using the provided UserID  
-- Fetches:
-  - the Roblox username  
-  - all saved outfits  
-  - the user's editable outfits (their own saved presets)  
-- Displays all actions in animated color-gradient text:
-  - Pink→Blue title banner  
-  - Green→White status messages  
-  - Typewriter input prompts  
-- Shows live progress such as:
+## ✨ Features
+
+✅ Input via **Username or UserID**  
+✅ Automatic **UserID resolution from Username**  
+✅ Fetches **all outfits** from a profile  
+✅ Filters only **editable (owned) outfits**  
+✅ Saves results automatically to `ids.txt`  
+✅ Animated terminal UI  
+✅ Color gradient effects  
+✅ Auto-restart after completion  
+
+---
+
+## 🖥️ Preview
+
+```text
+Enter Roblox UserID or Username: IILuvSandzak
+[+] Found @IILuvSandzak -> ID 9597914188
+[+] Requesting outfits...
+[+] 42 total outfits found
+[+] 17 editable outfits found
+[+] Done! Saved in format: id -- name
