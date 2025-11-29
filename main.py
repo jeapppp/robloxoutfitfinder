@@ -13,10 +13,6 @@ TYPE_SPEED = 0.01
 COOLDOWN_SECONDS = 2
 
 
-# -------------------------------------------------------
-#   TYPEWRITER + GREEN→WHITE GRADIENT
-# -------------------------------------------------------
-
 def type_gradient_greenwhite(text):
     start = (0, 255, 0)
     end = (255, 255, 255)
@@ -42,10 +38,6 @@ def status(text):
     type_gradient_greenwhite(text)
 
 
-# -------------------------------------------------------
-#   TYPEWRITER + PINK→BLUE GRADIENT FOR TITLE
-# -------------------------------------------------------
-
 def type_gradient_pinkblue(text):
     pink = (255, 79, 216)
     blue = (77, 204, 255)
@@ -67,10 +59,6 @@ def type_gradient_pinkblue(text):
         print()
         time.sleep(0.03)
 
-
-# -------------------------------------------------------
-#   TYPEWRITER INPUT PROMPT (mit Gradient)
-# -------------------------------------------------------
 
 def typewriter_input(prompt_text):
     start = (0, 255, 0)
@@ -98,10 +86,6 @@ TITLE = r"""
 """
 
 
-# -------------------------------------------------------
-#   MAIN PROGRAMM
-# -------------------------------------------------------
-
 def main():
 
     # ids.txt löschen
@@ -122,15 +106,24 @@ def main():
     else:
         username = "UnknownUser"
 
-    # Hier deine gewünschte Ausgabe:
     status(f"Requesting outfits for @{username} [{user_id}]...")
     time.sleep(COOLDOWN_SECONDS)
 
-    url = f"https://avatar.roblox.com/v1/users/{user_id}/outfits"
+    # -------------------------------------------------------
+    #   ALLE OUTFITS MIT EINEM CALL LADEN (itemsPerPage=500)
+    # -------------------------------------------------------
+    url = f"https://avatar.roblox.com/v1/users/{user_id}/outfits?itemsPerPage=500"
     response = requests.get(url)
 
     if response.status_code != 200:
         status("API error – could not retrieve outfits.")
+        print()
+        type_gradient_greenwhite("Press ENTER to restart the process...")
+        input()
+        time.sleep(1)
+        os.system("cls" if os.name == "nt" else "clear")
+        time.sleep(0.2)
+        main()
         return
 
     data = response.json()
@@ -160,9 +153,6 @@ def main():
 
     status("Done! Saved in format: id -- name")
 
-    # ---------------------
-    # Restart here ↓↓↓
-    # ---------------------
     print()
     type_gradient_greenwhite("Press ENTER to restart the process...")
     input()
