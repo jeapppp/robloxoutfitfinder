@@ -2,7 +2,32 @@ import requests
 import time
 import sys
 import os
+import msvcrt
 from colorama import init, Style
+import ctypes
+
+def set_console_size(width, height):
+    STD_OUTPUT_HANDLE = -11
+    hOut = ctypes.windll.kernel32.GetStdHandle(STD_OUTPUT_HANDLE)
+
+    # Puffergröße
+    class COORD(ctypes.Structure):
+        _fields_ = [("X", ctypes.c_short), ("Y", ctypes.c_short)]
+    size = COORD(width, height)
+    ctypes.windll.kernel32.SetConsoleScreenBufferSize(hOut, size)
+
+    # Fenstergröße
+    class SMALL_RECT(ctypes.Structure):
+        _fields_ = [("Left", ctypes.c_short),
+                    ("Top", ctypes.c_short),
+                    ("Right", ctypes.c_short),
+                    ("Bottom", ctypes.c_short)]
+    rect = SMALL_RECT(0, 0, width-1, height-1)
+    ctypes.windll.kernel32.SetConsoleWindowInfo(hOut, True, ctypes.byref(rect))
+
+# Aufruf
+set_console_size(79, 30)
+
 
 init()
 
@@ -11,6 +36,7 @@ RESET = "\033[0m"
 
 TYPE_SPEED = 0.01
 COOLDOWN_SECONDS = 2
+
 
 
 def type_gradient_greenwhite(text):
@@ -87,8 +113,6 @@ TITLE = r"""
 
 
 def main():
-
-    # ids.txt löschen / leeren
     with open("ids.txt", "w", encoding="utf-8"):
         pass
 
@@ -96,21 +120,18 @@ def main():
     type_gradient_pinkblue(TITLE)
     print()
 
-    # animierter Input: entweder eine numerische ID oder ein Username
     user_input = typewriter_input("Enter Roblox UserID or Username: ").strip()
 
     if not user_input:
-        status("Keine Eingabe erkannt. Neustart...")
+        status("No Input recognized. Restart...")
         time.sleep(1)
         os.system("cls" if os.name == "nt" else "clear")
         time.sleep(0.2)
         main()
         return
 
-    # Falls numerisch -> direkt als ID verwenden
     if user_input.isdigit():
         user_id = user_input
-        # Username abrufen (nur zur Anzeige)
         try:
             user_info = requests.get(f"https://users.roblox.com/v1/users/{user_id}", timeout=10)
             if user_info.status_code == 200:
@@ -121,7 +142,6 @@ def main():
             username = "UnknownUser"
 
     else:
-        # Eingabe ist kein Zahl: nehme an, es ist ein Username -> ID ermitteln (moderner POST-Endpoint)
         username_candidate = user_input
         status(f"Looking up username '{username_candidate}'...")
         try:
@@ -132,11 +152,9 @@ def main():
 
             if lookup.status_code == 200:
                 j = lookup.json()
-                # Die Antwort enthält ein Feld "data" mit Einträgen
                 data_list = j.get("data", [])
                 if data_list:
                     entry = data_list[0]
-                    # falls matchType "exact" oder "startsWith" etc. wir nehmen den ersten Eintrag
                     uid = entry.get("id")
                     uname = entry.get("name") or entry.get("username") or username_candidate
                     if uid:
@@ -144,20 +162,20 @@ def main():
                         username = uname
                         status(f"Found @{username} -> ID {user_id}")
                     else:
-                        status("Username not found. Bitte überprüfe die Eingabe.")
+                        status("Username not found. Please check your input.")
                         print()
-                        type_gradient_greenwhite("Press ENTER to restart the process...")
-                        input()
+                        type_gradient_greenwhite("Press any key to restart the process...")
+                        msvcrt.getch()
                         time.sleep(1)
                         os.system("cls" if os.name == "nt" else "clear")
                         time.sleep(0.2)
                         main()
                         return
                 else:
-                    status("Username not found. Bitte überprüfe die Eingabe.")
+                    status("Username not found. Please check your input.")
                     print()
-                    type_gradient_greenwhite("Press ENTER to restart the process...")
-                    input()
+                    type_gradient_greenwhite("Press any key to restart the process...")
+                    msvcrt.getch()
                     time.sleep(1)
                     os.system("cls" if os.name == "nt" else "clear")
                     time.sleep(0.2)
@@ -166,8 +184,8 @@ def main():
             else:
                 status(f"API error while resolving username (HTTP {lookup.status_code}).")
                 print()
-                type_gradient_greenwhite("Press ENTER to restart the process...")
-                input()
+                type_gradient_greenwhite("Press any key to restart the process...")
+                msvcrt.getch()
                 time.sleep(1)
                 os.system("cls" if os.name == "nt" else "clear")
                 time.sleep(0.2)
@@ -177,8 +195,8 @@ def main():
         except requests.exceptions.RequestException:
             status("Network error while resolving username.")
             print()
-            type_gradient_greenwhite("Press ENTER to restart the process...")
-            input()
+            type_gradient_greenwhite("Press any key to restart the process...")
+            msvcrt.getch()
             time.sleep(1)
             os.system("cls" if os.name == "nt" else "clear")
             time.sleep(0.2)
@@ -189,17 +207,15 @@ def main():
 
     time.sleep(COOLDOWN_SECONDS)
 
-    # -------------------------------------------------------
-    #   ALLE OUTFITS MIT EINEM CALL LADEN (itemsPerPage=500)
-    # -------------------------------------------------------
+
     url = f"https://avatar.roblox.com/v1/users/{user_id}/outfits?itemsPerPage=500"
     try:
         response = requests.get(url, timeout=10)
     except Exception:
         status("Network error – could not retrieve outfits.")
         print()
-        type_gradient_greenwhite("Press ENTER to restart the process...")
-        input()
+        type_gradient_greenwhite("Press any key to restart the process...")
+        msvcrt.getch()
         time.sleep(1)
         os.system("cls" if os.name == "nt" else "clear")
         time.sleep(0.2)
@@ -209,8 +225,8 @@ def main():
     if response.status_code != 200:
         status("API error – could not retrieve outfits.")
         print()
-        type_gradient_greenwhite("Press ENTER to restart the process...")
-        input()
+        type_gradient_greenwhite("Press any key to restart the process...")
+        msvcrt.getch()
         time.sleep(1)
         os.system("cls" if os.name == "nt" else "clear")
         time.sleep(0.2)
@@ -245,8 +261,8 @@ def main():
     status("Done! Saved in format: id -- name")
 
     print()
-    type_gradient_greenwhite("Press ENTER to restart the process...")
-    input()
+    type_gradient_greenwhite("Press any key to restart the process...")
+    msvcrt.getch()
 
     time.sleep(1)
     os.system("cls" if os.name == "nt" else "clear")
