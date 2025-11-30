@@ -25,7 +25,7 @@ Features animated terminal output, color gradients, and automatic file export.
 ## 🖥️ Preview
 
 ```text
-Enter Roblox UserID or Username: IILuvSandzak
+Enter Roblox UserID or Username: @username
 [+] Found @username -> ID 1234567890
 [+] Requesting outfits...
 [+] xxx total outfits found
