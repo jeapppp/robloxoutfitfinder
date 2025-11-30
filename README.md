@@ -18,7 +18,7 @@ Features animated terminal output, color gradients, and automatic file export.
 ✅ Animated terminal UI  
 ✅ Color gradient effects  
 ✅ Auto-restart after completion  
-✅ **Discord Webhook**: sendet für jedes editable Outfit ein Embed (Titel, Description mit OutfitID, Bild-Thumbnail)
+✅ **Discord Webhook**: sends an embed for each editable outfit (title, description with outfit ID, image thumbnail)
 
 ---
 
