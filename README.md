@@ -18,6 +18,7 @@ Features animated terminal output, color gradients, and automatic file export.
 ✅ Animated terminal UI  
 ✅ Color gradient effects  
 ✅ Auto-restart after completion  
+✅ **Discord Webhook**: sendet für jedes editable Outfit ein Embed (Titel, Description mit OutfitID, Bild-Thumbnail)
 
 ---
 
@@ -29,4 +30,5 @@ Enter Roblox UserID or Username: IILuvSandzak
 [+] Requesting outfits...
 [+] xxx total outfits found
 [+] xx editable outfits found
+[+] Sent embed for OutfitID 987654321
 [+] Done! Saved in format: id -- name
