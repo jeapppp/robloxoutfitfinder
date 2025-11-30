@@ -9,7 +9,7 @@ import ctypes
 import json
 
 
-DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1444668971327426573/7ZGb-1YVYmEJC60JPzdVDyw3MvoCiCnAvEy9J5M9YaE8zBT8ZQYd2hzbYoscm8IFosko"
+DISCORD_WEBHOOK = ""
 TYPE_SPEED = 0.01
 COOLDOWN_SECONDS = 3
 
@@ -222,3 +222,4 @@ def main():
 # ---------- ENTRY POINT ----------
 if __name__ == "__main__":
     main()
+
