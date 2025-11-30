@@ -1,7 +1,7 @@
 # 🎮 Outfit Loader (Roblox)
 
 A clean and stylish Python tool to **fetch all editable Roblox outfits** of any user — using either a **UserID or Username**.  
-Features animated terminal output, color gradients, and automatic file export.
+Features animated terminal output, color gradients, automatic file export, and Discord webhook support.
 
 > 💡 Developed by **@toukaclips**  
 > 🌐 Discord: `.gg/worldvoice`
@@ -18,7 +18,8 @@ Features animated terminal output, color gradients, and automatic file export.
 ✅ Animated terminal UI  
 ✅ Color gradient effects  
 ✅ Auto-restart after completion  
-✅ **Discord Webhook**: sends an embed for each editable outfit (title, description with outfit ID, image thumbnail)
+✅ **Discord Webhook**: sends an embed for each editable outfit (title, description with outfit ID, image thumbnail)  
+✅ **Animated Console Title**: `"by @toukaclips"` scrolls from right to left and back without interrupting terminal output
 
 ---
 
